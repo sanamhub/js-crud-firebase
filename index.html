@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>JS CRUD Firebase</title>
+  </head>
+  <body>
+    <label for="name">Name</label>
+    <input type="text" class="name" name="name" id="name" />
+
+    <label for="roll-no">Roll No</label>
+    <input type="text" class="roll-no" name="roll-no" id="roll-no" />
+
+    <label for="section">Section</label>
+    <input type="text" class="section" name="section" id="section" />
+
+    <label for="gender">Gender</label>
+    <select name="gender" id="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+
+    <button class="createCRUD" name="createCRUD" id="createCRUD">Create</button>
+    <button class="readCRUD" name="readCRUD" id="readCRUD">Read</button>
+    <button class="updateCRUD" name="updateCRUD" id="updateCRUD">Update</button>
+    <button class="deleteCRUD" name="deleteCRUD" id="deleteCRUD">Delete</button>
+
+    <script type="module">
+      // firebase import and configuration
+      // 1. goto https://firebase.google.com/
+      // 2. goto project settings
+      // 3. goto web app
+      // 4. copy code under cdn radio button
+
+      // paste here (firebase import and configuration)
+
+      import {
+        getDatabase,
+        ref,
+        set,
+        child,
+        update,
+        remove,
+      } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
+
+      const db = getDatabase();
+
+      // references
+      let name = document.getElementById("name");
+      let rollNo = document.getElementById("roll-no");
+      let section = document.getElementById("section");
+      let gender = document.getElementById("gender");
+
+      let createCRUD = document.getElementById("createCRUD");
+      let readCRUD = document.getElementById("readCRUD");
+      let updateCRUD = document.getElementById("updateCRUD");
+      let deleteCRUD = document.getElementById("wdeleteCRUD");
+
+      // insert data function
+      function InsertData() {
+        set(ref(db, "TheStudents/" + rollNo.value), {
+          nameVal: name.value,
+          rollNoVal: rollNo.value,
+          sectionVal: section.value,
+          genderVal: gender.value,
+        })
+          .then(() => {
+            alert("Data stored successfully!");
+          })
+          .cath((error) => {
+            alert(`Unsuccessful, error ${error}`);
+          });
+      }
+
+      // assign event to buttons
+      createCRUD.addEventListener("click", InsertData);
+    </script>
+  </body>
+</html>
