@@ -46,3 +46,5 @@ function InsertData() {
 
 // assign event to buttons
 createCRUD.addEventListener("click", InsertData);
+
+console.log("Hello World!");
